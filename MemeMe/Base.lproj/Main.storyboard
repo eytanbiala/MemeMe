@@ -9,7 +9,6 @@
         <!--Navigation Controller-->
         <scene sceneID="8b8-4B-2nb">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Zgk-az-9UP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="0xy-OM-yJV" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gXZ-wQ-sz5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -23,13 +22,14 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="crN-IS-RDJ"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zgk-az-9UP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-730" y="277"/>
         </scene>
-        <!--View Controller-->
+        <!--Meme Editor View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MemeEditorViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
