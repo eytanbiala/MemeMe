@@ -39,8 +39,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     ]
 
     var cancelItem: UIBarButtonItem!
-    var viewOrigin: CGFloat = 0.0
     var meme = Meme(topFieldText: "", bottomFieldText: "", originalImage: nil, memeImage: nil)
+    var memes: [Meme] = [Meme]()
 
 
     override func viewDidLoad() {
@@ -66,7 +66,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
             photoItem.enabled = false
         }
 
-        imageView.contentMode = .ScaleAspectFill
+        imageView.contentMode = .ScaleAspectFit
 
         view.sendSubviewToBack(imageView)
     }
@@ -91,8 +91,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     }
 
     func textFieldDidEndEditing(textField: UITextField) {
-        meme.topFieldText = ""
-        meme.bottomFieldText = ""
         if textField.text?.utf8.count == 0 {
             if textField == topTextField {
                 textField.text = topFieldDefaultValue
@@ -124,15 +122,12 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
 
     func keyboardWillShow(notification: NSNotification) {
         if bottomTextField.isFirstResponder() {
-            if viewOrigin == 0.0 {
-                viewOrigin = self.view.frame.origin.y
-            }
-            self.view.frame.origin.y -= getKeyboardHeight(notification)
+            view.frame.origin.y = -getKeyboardHeight(notification)
         }
     }
 
     func keyboardWillHide(notification: NSNotification) {
-        self.view.frame.origin.y = 0
+        view.frame.origin.y = 0
     }
 
     func getKeyboardHeight(notification: NSNotification) -> CGFloat {
@@ -143,8 +138,9 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
 
 
     func shareTapped(sender: UIBarButtonItem) {
-
         let image = generateMemedImage()
+        // Saves the meme.
+        memes.append(meme)
         let share = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         presentViewController(share, animated: true, completion: nil)
     }
@@ -163,25 +159,20 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.sourceType = .Camera
-        self.presentViewController(picker, animated: true, completion: nil)
-    }
-
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        print("finished")
-        dismissViewControllerAnimated(true, completion: nil)
+        presentViewController(picker, animated: true, completion: nil)
     }
 
     func albumTapped(sender: UIBarButtonItem) {
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.sourceType = .SavedPhotosAlbum
-        self.presentViewController(picker, animated: true, completion: nil)
+        presentViewController(picker, animated: true, completion: nil)
     }
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         let selectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
 
-        self.imageView.image = selectedImage
+        imageView.image = selectedImage
         meme.originalImage = selectedImage
 
         dismissViewControllerAnimated(true, completion: nil)
@@ -189,10 +180,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
 
     func generateMemedImage() -> UIImage {
 
-        let topBarHeight = CGRectGetHeight((self.navigationController?.navigationBar.frame)!) + CGRectGetHeight(UIApplication.sharedApplication().statusBarFrame);
-        let bottomBarHeight = CGRectGetHeight((self.navigationController?.toolbar.frame)!);
-        let viewHeight = CGRectGetHeight(self.view.frame) - topBarHeight - bottomBarHeight
-        let viewFrame = CGRectMake(0, topBarHeight, CGRectGetWidth(self.view.frame), viewHeight)
+        let topBarHeight = CGRectGetHeight((navigationController?.navigationBar.frame)!) + CGRectGetHeight(UIApplication.sharedApplication().statusBarFrame);
+        let bottomBarHeight = CGRectGetHeight((navigationController?.toolbar.frame)!);
+        let viewHeight = CGRectGetHeight(view.frame) - topBarHeight - bottomBarHeight
+        let viewFrame = CGRectMake(0, topBarHeight, CGRectGetWidth(view.frame), viewHeight)
 
         // Render view to an image
         UIGraphicsBeginImageContext(view.frame.size)
