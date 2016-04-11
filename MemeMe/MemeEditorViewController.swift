@@ -171,17 +171,17 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
     }
 
     func cameraTapped(sender: UIBarButtonItem) {
-
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.sourceType = .Camera
-        presentViewController(picker, animated: true, completion: nil)
+        presentImagePicker(.Camera)
     }
 
     func albumTapped(sender: UIBarButtonItem) {
+        presentImagePicker(.SavedPhotosAlbum)
+    }
+
+    func presentImagePicker(type: UIImagePickerControllerSourceType) {
         let picker = UIImagePickerController()
         picker.delegate = self
-        picker.sourceType = .SavedPhotosAlbum
+        picker.sourceType = type
         presentViewController(picker, animated: true, completion: nil)
     }
 
