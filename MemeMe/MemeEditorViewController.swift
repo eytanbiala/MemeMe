@@ -40,20 +40,20 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
 
     var cancelItem: UIBarButtonItem!
     var meme = Meme(topFieldText: "", bottomFieldText: "", originalImage: nil, memeImage: nil)
-    var memes: [Meme] = [Meme]()
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let shareItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: "shareTapped:")
-        cancelItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "cancelTapped:")
+        view.backgroundColor = UIColor.blackColor()
+
+        let shareItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: #selector(MemeEditorViewController.shareTapped(_:)))
+        cancelItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: #selector(MemeEditorViewController.cancelTapped(_:)))
 
         navigationItem.setLeftBarButtonItem(shareItem, animated: false)
         navigationItem.setRightBarButtonItem(cancelItem, animated: false)
 
-        let photoItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "cameraTapped:")
-        let albumItem = UIBarButtonItem(title: "Album", style: UIBarButtonItemStyle.Plain, target: self, action: "albumTapped:")
+        let photoItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: #selector(MemeEditorViewController.cameraTapped(_:)))
+        let albumItem = UIBarButtonItem(title: "Album", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MemeEditorViewController.albumTapped(_:)))
         let flexibleSpaceItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
 
         let fixedSpaceItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
@@ -112,8 +112,8 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
     }
 
     func subscribeToKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MemeEditorViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MemeEditorViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
 
     func unsubscribeFromKeyboardNotifications() {
@@ -139,10 +139,23 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
 
     func shareTapped(sender: UIBarButtonItem) {
         let image = generateMemedImage()
-        // Saves the meme.
-        memes.append(meme)
+
         let share = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+
+        share.completionWithItemsHandler = {(activityType, completed:Bool, returnedItems, activityError) in
+            if completed {
+                // Add it to the memes array in the Application Delegate
+                let object = UIApplication.sharedApplication().delegate
+                let appDelegate = object as! AppDelegate
+                appDelegate.memes.append(self.meme)
+                self.dismiss()
+            }
+        }
         presentViewController(share, animated: true, completion: nil)
+    }
+
+    func dismiss() {
+        navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
 
     func cancelTapped(sender: UIBarButtonItem) {
@@ -152,20 +165,23 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
         resignFirstResponder()
 
         meme = Meme(topFieldText: "", bottomFieldText: "", originalImage: nil, memeImage: nil)
+
+        // navigationController?.popViewControllerAnimated(true)
+        dismiss()
     }
 
     func cameraTapped(sender: UIBarButtonItem) {
-
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.sourceType = .Camera
-        presentViewController(picker, animated: true, completion: nil)
+        presentImagePicker(.Camera)
     }
 
     func albumTapped(sender: UIBarButtonItem) {
+        presentImagePicker(.SavedPhotosAlbum)
+    }
+
+    func presentImagePicker(type: UIImagePickerControllerSourceType) {
         let picker = UIImagePickerController()
         picker.delegate = self
-        picker.sourceType = .SavedPhotosAlbum
+        picker.sourceType = type
         presentViewController(picker, animated: true, completion: nil)
     }
 

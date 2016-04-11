@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B6A744F1BE8E1AD00F26697 /* MemeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6A744E1BE8E1AD00F26697 /* MemeCollectionViewController.swift */; };
+		9B6A74511BE8E1BE00F26697 /* MemeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6A74501BE8E1BE00F26697 /* MemeTableViewController.swift */; };
+		9BADDC351CBB608800DFB452 /* MemeViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BADDC341CBB608800DFB452 /* MemeViewerController.swift */; };
 		9BE94E0C1BB9E3A5005DFC57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE94E0B1BB9E3A5005DFC57 /* AppDelegate.swift */; };
 		9BE94E0E1BB9E3A5005DFC57 /* MemeEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE94E0D1BB9E3A5005DFC57 /* MemeEditorViewController.swift */; };
 		9BE94E111BB9E3A5005DFC57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE94E0F1BB9E3A5005DFC57 /* Main.storyboard */; };
@@ -14,7 +17,7 @@
 		9BE94E161BB9E3A5005DFC57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE94E141BB9E3A5005DFC57 /* LaunchScreen.storyboard */; };
 		9BE94E211BB9E3A5005DFC57 /* MemeMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE94E201BB9E3A5005DFC57 /* MemeMeTests.swift */; };
 		9BE94E2C1BB9E3A5005DFC57 /* MemeMeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE94E2B1BB9E3A5005DFC57 /* MemeMeUITests.swift */; };
-		9BE94E3A1BBA5CB3005DFC57 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE94E391BBA5CB3005DFC57 /* Meme.swift */; settings = {ASSET_TAGS = (); }; };
+		9BE94E3A1BBA5CB3005DFC57 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE94E391BBA5CB3005DFC57 /* Meme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9B6A744E1BE8E1AD00F26697 /* MemeCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeCollectionViewController.swift; sourceTree = "<group>"; };
+		9B6A74501BE8E1BE00F26697 /* MemeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeTableViewController.swift; sourceTree = "<group>"; };
+		9BADDC341CBB608800DFB452 /* MemeViewerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeViewerController.swift; sourceTree = "<group>"; };
 		9BE94E081BB9E3A5005DFC57 /* MemeMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemeMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BE94E0B1BB9E3A5005DFC57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9BE94E0D1BB9E3A5005DFC57 /* MemeEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemeEditorViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +112,9 @@
 				9BE94E141BB9E3A5005DFC57 /* LaunchScreen.storyboard */,
 				9BE94E171BB9E3A5005DFC57 /* Info.plist */,
 				9BE94E391BBA5CB3005DFC57 /* Meme.swift */,
+				9B6A744E1BE8E1AD00F26697 /* MemeCollectionViewController.swift */,
+				9B6A74501BE8E1BE00F26697 /* MemeTableViewController.swift */,
+				9BADDC341CBB608800DFB452 /* MemeViewerController.swift */,
 			);
 			path = MemeMe;
 			sourceTree = "<group>";
@@ -259,8 +268,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B6A744F1BE8E1AD00F26697 /* MemeCollectionViewController.swift in Sources */,
+				9BADDC351CBB608800DFB452 /* MemeViewerController.swift in Sources */,
 				9BE94E3A1BBA5CB3005DFC57 /* Meme.swift in Sources */,
 				9BE94E0E1BB9E3A5005DFC57 /* MemeEditorViewController.swift in Sources */,
+				9B6A74511BE8E1BE00F26697 /* MemeTableViewController.swift in Sources */,
 				9BE94E0C1BB9E3A5005DFC57 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
